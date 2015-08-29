@@ -1,0 +1,63 @@
+@import "bower_components/bootstrap/less/bootstrap.less";
+/*@import "bootswatch.less";*/
+/*@import "variables.less";*/
+@import "bower_components/font-awesome/less/font-awesome.less";
+@fa-font-path: "bower_components/font-awesome/fonts";
+@icon-font-path: "bower_components/bootstrap/fonts/";
+
+/* Component LESS */
+@import "partial/ward-council/ward-council.less";
+@import "partial/home/home.less";
+@import "partial/navbar/navbar.less";
+@import "partial/ward-council-print/ward-council-print.less";
+@import "partial/ward-council/generate-agenda/generate-agenda.less";
+/* Add Component LESS Above */
+
+/* Required for Angular UI Bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/* Personal preference for BS modal.  The LESS below makes the backdrop white and
+   causes the modal to fade in rather than slide in. */
+//@modal-backdrop-bg: white;
+//.modal {
+//	&.fade {
+//		.transition(opacity .3s);
+//	}
+//	&.fade .modal-dialog {
+//		.translate(0,0);
+//	}
+//}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.full-width {
+    width: 100%
+}
+
+table.bordered-table {
+    border-collapse: collapse;
+}
+
+table.bordered-table, .bordered-table th, .bordered-table td {
+    border: 1px solid darkgray;
+}
+
+table.bordered-table td {
+    padding: 2px 4px;
+}
+
+.print-page{
+    margin: 0px;
+    padding: 0px;
+    width: 670px; /* width: 7in; */
+    height: 900px; /* or height: 9.5in; */
+    clear: both;
+    background-color: white;
+    page-break-after: always;
+}
+
+.print-page-wrapper{ 
+    background-color: gray;
+}

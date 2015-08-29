@@ -1,0 +1,22 @@
+<div class="" ng-controller="WardCouncilCtrl">
+    <div ng-include="'partial/navbar/navbar.html'"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button class="btn btn-primary pull-right" ng-click="create()"><i class="fa fa-plus"></i> Create Agenda</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="list-group">
+                    <a ng-click="open(agenda)" class="list-group-item" ng-repeat="agenda in agendas">
+                        {{agenda.date| date : 'MMM d, yyyy'}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

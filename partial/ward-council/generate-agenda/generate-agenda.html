@@ -1,0 +1,49 @@
+<div class="">
+    <form>
+        <div class="modal-header">
+            <h3 class="modal-title"><i class="fa fa-plus"></i> Create Agenda</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="text" 
+                               icon-prefix="fa"
+                               class="form-control" 
+                               id="date" 
+                               placeholder="" 
+                               datepicker-popup="MM/dd/yyyy"
+                               ng-model="agenda.date" 
+                               is-open="opened"
+                                
+                               close-text="Close">
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-repeat="op in wc.opening">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="{{op.id}}">{{op.val}}</label>
+                        <select class="form-control" 
+                                id="{{op.id}}"
+                                
+                                ng-model="agenda.opening[op.id]" ng-options="item.id as item.val for (key, item) in wc.councilMembers"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-repeat="ind in wc.keyIndicators">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="{{ind.id}}">{{ind.val}}</label>
+                        <input class="form-control"  type="text" ng-model="agenda.keyIndicators[ind.id]"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="create()">Create</button>
+            <div type="button" class="btn btn-warning" ng-click="cancel()">Cancel</div>
+        </div>
+    </form>
+</div>

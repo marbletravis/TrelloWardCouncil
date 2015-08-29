@@ -1,0 +1,157 @@
+<div class="print-page-wrapper ward-council-print" ng-controller="WardCouncilPrintCtrl">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group pull-right">
+                <button class="btn" ng-click="print()"><i class="fa fa-print"></i> Print</button>
+                <button class="btn btn-primary" ng-click="save()"><i class="fa fa-floppy-o"></i> Save</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="print-page-wrapper">
+        <div class="print-page container-fluid">
+            <div class="row">
+                <div class="col-xs-12 text-center header">
+                    Ward Council - {{agenda.date| date : 'MMM d, yyyy'}}
+                    <hr/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="full-width bordered-table small">
+                        <tr>
+                            <td>Endowed W/Recommend</td>
+                            <td>{{agenda.keyIndicators.endowed}}</td>
+                            <td>Prospective Elders</td>
+                            <td>{{agenda.keyIndicators.elders}}</td>
+                            <td>Sacrament Attendance</td>
+                            <td>{{agenda.keyIndicators.sacrament}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(1) Opening</div>
+                        <table class="full-width bordered-table small">
+                            <tr ng-repeat="op in wc.opening">
+                                <td>{{op.val}}</td>
+                                <td>{{wc.councilMembers[agenda.opening[op.id]].val}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(5) Calendaring - 5 Minutes</div>
+                        <div class="agenda-item-header">(6) Family History</div>
+                        <div class="agenda-item-header">(7) Auxiliaries</div>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(2) Agenda/Follow up</div>
+                        <div class="agenda-checkbox" ng-repeat="card in cards[AGENDA_ID]">
+                            <i class="fa fa-square-o"></i> {{card.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(3) New Move-Ins</div>
+                        <table class="full-width bordered-table small">
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Date</th>
+                                <th>B/V</th>
+                                <th>HP/V</th>
+                                <th>E/V</th>
+                                <th>RS/V</th>
+                                <th>YM/V</th>
+                                <th>YW/V</th>
+                                <th>P/V</th>
+                                <th>C</th>
+                                <th>HT</th>
+                                <th>VT</th>
+                            </tr>
+                            <tr ng-repeat="card in cards[NEW_MEMBERS_ID]">
+                                <td>{{card.name}}</td>
+                                <td>{{card.address}}</td>
+                                <td>{{card.date}}</td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[BV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[BV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[HPV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[HPV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[EV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[EV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[RSV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[RSV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[YMV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[YMV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[YWV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[YWV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[PV] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[PV] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[C] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[C] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[HT] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[HT] === true"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[VT] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[VT] === true"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(4) Member Focus/Missionary</div>
+                        <!--                        <div class="cards">
+                                                    <div class="card small" ng-repeat="card in cards[MEMBER_FOCUS_ID] | orderBy : card.dateLastActivity">
+                                                        <div class="card-body">
+                                                            <span class="card-header"><strong>{{card.name}}</strong></span>
+                                                            {{card.comments[0].text}}
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                        <table class="full-width bordered-table small">
+                            <thead>
+                            <tr>
+                                <th>Member Name</th>
+                                <th>Assignee</th>
+                                <th>Last Recorded Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="card in cards[MEMBER_FOCUS_ID] | orderBy : card.dateLastActivity">
+                                <td>{{card.name}}</td>
+                                <td>{{card.desc}}</td>
+                                <td>{{card.comments[0].text}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
