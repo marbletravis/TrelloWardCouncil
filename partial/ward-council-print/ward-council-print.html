@@ -1,5 +1,5 @@
 <div class="print-page-wrapper ward-council-print" ng-controller="WardCouncilPrintCtrl">
-    <div class="row">
+    <div class="row hidden-print">
         <div class="col-xs-12">
             <div class="form-group pull-right">
                 <button class="btn" ng-click="print()"><i class="fa fa-print"></i> Print</button>
@@ -41,11 +41,6 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="agenda-item">
-                        <div class="agenda-item-header">(5) Calendaring - 5 Minutes</div>
-                        <div class="agenda-item-header">(6) Family History</div>
-                        <div class="agenda-item-header">(7) Auxiliaries</div>
-                    </div>
                 </div>
                 <div class="col-xs-7">
                     <div class="agenda-item">
@@ -72,6 +67,7 @@
                                 <th>YM/V</th>
                                 <th>YW/V</th>
                                 <th>P/V</th>
+                                <th>M/V</th>
                                 <th>C</th>
                                 <th>HT</th>
                                 <th>VT</th>
@@ -109,6 +105,10 @@
                                     <i class="fa fa-check-square-o" ng-if="card.needs[PV] === true"></i>
                                 </td>
                                 <td>
+                                    <i class="fa fa-square-o" ng-if="card.needs[M] === false"></i>
+                                    <i class="fa fa-check-square-o" ng-if="card.needs[M] === true"></i>
+                                </td>
+                                <td>
                                     <i class="fa fa-square-o" ng-if="card.needs[C] === false"></i>
                                     <i class="fa fa-check-square-o" ng-if="card.needs[C] === true"></i>
                                 </td>
@@ -124,7 +124,12 @@
                         </table>
                     </div>
                     <div class="agenda-item">
-                        <div class="agenda-item-header">(4) Member Focus/Missionary</div>
+                        <div class="agenda-item-header">(4) Member Focus</div>
+                        <div class="no-break">
+                            <div class="agenda-item-sub-header">Member Focus - <small>We haven't heard much about these members in a while, do you know anything new?</small></div>
+                            <span ng-repeat="card in cards[MEMBER_FOCUS_ID]| dateRange : 'dateLastActivity' : REST_BEGIN : REST_END">{{card.name}};&nbsp;&nbsp;&nbsp;</span>
+                        </div>
+                        <div class="agenda-item-sub-header">Member Focus - Updated less than 1 week ago</div>
                         <!--                        <div class="cards">
                                                     <div class="card small" ng-repeat="card in cards[MEMBER_FOCUS_ID] | orderBy : card.dateLastActivity">
                                                         <div class="card-body">
@@ -133,22 +138,45 @@
                                                         </div>
                                                     </div>
                                                 </div>-->
-                        <table class="full-width bordered-table small">
-                            <thead>
-                            <tr>
-                                <th>Member Name</th>
-                                <th>Assignee</th>
-                                <th>Last Recorded Status</th>
-                            </tr>
-                            </thead>
+                        <table class="full-width bordered-table small no-break">
                             <tbody>
-                            <tr ng-repeat="card in cards[MEMBER_FOCUS_ID] | orderBy : card.dateLastActivity">
-                                <td>{{card.name}}</td>
-                                <td>{{card.desc}}</td>
-                                <td>{{card.comments[0].text}}</td>
-                            </tr>
+                                <tr ng-repeat="card in cards[MEMBER_FOCUS_ID]| dateRange : 'dateLastActivity' : THIS_WEEK_BEGIN : THIS_WEEK_END">
+                                    <td>{{card.name}}</td>
+                                    <td>{{card.comments[0].text}}</td>
+                                </tr>
                             </tbody>
                         </table>
+                        <div class="no-break">
+                            <div class="agenda-item-sub-header">Member Focus - Updated less than 1 month ago</div>
+                            <table class="full-width bordered-table small">
+                                <tbody>
+                                    <tr ng-repeat="card in cards[MEMBER_FOCUS_ID]| dateRange : 'dateLastActivity' : LAST_MONTH_BEGIN : LAST_MONTH_END">
+                                        <td>{{card.name}}</td>
+                                        <td>{{card.comments[0].text}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(5) Missionary Efforts</div>
+                        <div class="no-break">
+                            <div class="agenda-item-sub-header">Missionary Visits - Last Week</div>
+                            <table class="full-width bordered-table small">
+                                <tbody>
+                                    <tr ng-repeat="card in cards[MISSIONARY_VISITS_ID] | dateRange : 'dateLastActivity' : THIS_WEEK_BEGIN : THIS_WEEK_END">
+                                        <td>{{card.name}}</td>
+                                        <td>{{card.comments[0].text}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-item-header">(6) Calendaring - 5 Minutes</div>
+                        <div class="agenda-item-header">(7) Family History</div>
+                        <div class="agenda-item-header">(8) Auxiliaries</div>
                     </div>
                 </div>
             </div>

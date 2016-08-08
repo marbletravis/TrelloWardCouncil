@@ -47,7 +47,9 @@ angular.module('church').factory('trello', function ($q) {
         if (isAuthorized) {
             deferred.resolve();
         } else {
-            Trello.authorize({name: 'Ward Council', type: 'popup', success: deferred.resolve, scope: {read: true, write: true, account: false}});
+            Trello.authorize({name: 'Ward Council', type: 'popup', success: function(){
+                    deferred.resolve();
+            }, scope: {read: true, write: true, account: false}});
         }
         return deferred.promise;
     }

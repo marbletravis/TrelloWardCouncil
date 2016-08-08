@@ -12,10 +12,27 @@ angular.module('church').controller('WardCouncilPrintCtrl', function ($scope, tr
             $scope.canSave = true;
         });
     };
+    
+    $scope.print = function(){
+        window.print();
+    };
+    
+    $scope.THIS_WEEK_END =  new Date($scope.agenda.date);
+    $scope.THIS_WEEK_BEGIN =  new Date($scope.agenda.date);
+    $scope.THIS_WEEK_BEGIN.setDate($scope.THIS_WEEK_BEGIN.getDate()-8);
+    
+    $scope.LAST_MONTH_END = new Date($scope.THIS_WEEK_BEGIN);
+    $scope.LAST_MONTH_BEGIN = new Date($scope.THIS_WEEK_END);
+    $scope.LAST_MONTH_BEGIN.setMonth($scope.LAST_MONTH_BEGIN.getMonth()-1);
+    
+    $scope.REST_END = new Date($scope.LAST_MONTH_BEGIN);
+    $scope.REST_BEGIN = new Date('1970-01-01');
 
     $scope.AGENDA_ID = '55b3ab92768e1cd9468ea625';
     $scope.NEW_MEMBERS_ID = '55b3ab88130bb7bf0e6bd260';
     $scope.MEMBER_FOCUS_ID = '55b3ab8b97959c67c22e9c95';
+    $scope.MISSIONARY_VISITS_ID = '55c77cb9f6bf9ccc04b38518';
+    
     $scope.cards = {};
     
     trello.getBoard(trello.WARD_COUNCIL).then(function (data) {
@@ -78,6 +95,7 @@ angular.module('church').controller('WardCouncilPrintCtrl', function ($scope, tr
     $scope.YMV = 'YM Visit';
     $scope.YWV = 'YW Visit';
     $scope.PV = 'Primary Visit';
+    $scope.M = 'Missionary Visit';
     var checkItemIds = {};
     function processChecklist(checklist, card, board) {
         switch (checklist.name) {
